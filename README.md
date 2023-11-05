@@ -38,6 +38,6 @@ If you already have SSL certificates, skip this step. Otherwise, you can generat
 
    ```bash
    ng serve --ssl
+   ```
 
-   
-Your Angular application will be accessible at [](https://localhost:4200.)
+   Your Angular application will be accessible at [](https://localhost:4200.)
