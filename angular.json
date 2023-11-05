@@ -58,6 +58,11 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "sslKey": "./certificates/localhost.key",
+            "sslCert": "./certificates/localhost.crt",
+            "ssl": true
+          },
           "configurations": {
             "production": {
               "browserTarget": "Africuisine.Dashboard:build:production"
@@ -94,5 +99,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "63c39c45-15b9-4d7d-8e0a-6e3fc4cdf055"
   }
 }
