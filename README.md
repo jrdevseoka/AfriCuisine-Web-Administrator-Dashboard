@@ -30,8 +30,11 @@ If you already have SSL certificates, skip this step. Otherwise, you can generat
 
   Run the following commands to generate the SSL certificates:
     ```bash
-    openssl req -newkey rsa:2048 -new -nodes -keyout localhost.key -out localhost.csr
-    openssl x509 -req -days 365 -in localhost.csr -signkey localhost.key -out localhost.crt
+    openssl req -newkey rsa:2048 -new -nodes -keyout localhost.key -out localhost.csr```
+  And then run this command:
+    ```bash
+    openssl x509 -req -days 365 -in localhost.csr -signkey localhost.key -out localhost.crt```
+
 3. **Running the Angular Application**:
 
    If your angular.json file is already configured correctly for HTTPS (with the certificate and key paths), you can now start the development server with HTTPS enabled:
@@ -40,4 +43,4 @@ If you already have SSL certificates, skip this step. Otherwise, you can generat
    ng serve --ssl
    ```
 
-   Your Angular application will be accessible at [AfriCuisineDashboard](https://localhost:4200/)
+   Your Angular application will be accessible at [https://localhost:4200/](https://localhost:4200/)
