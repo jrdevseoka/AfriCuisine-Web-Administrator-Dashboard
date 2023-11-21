@@ -2,3 +2,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@layer components
+{
+  .active {
+     @apply text-devilish-500
+  }
+  .side-nav-link {
+    @apply  flex  items-center p-2 text-dark-soul-900 rounded-lg  hover:bg-dark-soul-100 cursor-pointer
+  }
+  .side-nav-sub-link
+  {
+    @apply flex items-center w-full p-2 text-dark-soul-900 transition duration-75 rounded-lg pl-11  hover:bg-dark-soul-100
+  }
+  .side-nav-icon
+  {
+    @apply w-5 h-5 text-dark-soul-500 transition duration-75 active:text-devilish-500
+  }
+
+}
