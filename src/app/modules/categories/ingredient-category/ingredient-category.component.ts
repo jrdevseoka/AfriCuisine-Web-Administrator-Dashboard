@@ -26,18 +26,6 @@ export class IngredientCategoryComponent implements OnInit {
     this.processed = false
     this.getCategories()
   }
-  OnSubmit() {
-    this.category.name =  this.catIngredientForm.controls['name'].value
-    this.category.description =  this.catIngredientForm.controls['decription'].value
-    this.categoryService.create(this.category).subscribe((res) => {
-      this.message = res.message
-      this.succeeded = res.succeeded
-      this.processed = true
-      if (res.succeeded) {
-        this.categoryService.getCategories().subscribe((res) => this.categories = res.items);
-      }
-    });
-  }
   getCategories() {
     this.categoryService.getCategories().subscribe((res) => {
       this.categories = res.items

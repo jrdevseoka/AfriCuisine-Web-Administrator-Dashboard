@@ -13,13 +13,14 @@ import { TopNavigationComponent } from './shared/components/navigation/top/top-n
 import { SideNavigationComponent } from './shared/components/navigation/side/side-navigation.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedComponentModule } from './shared/components/shared-component.module';
+import { DashboardComponent } from './modules/dashboard/dashboard.component';
 @NgModule({
   declarations: [
     AppComponent,
     RecipeCategoryComponent,
     IngredientCategoryComponent,
     CategoryTableComponent,
-    EmptyStateComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,

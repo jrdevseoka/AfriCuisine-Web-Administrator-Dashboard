@@ -21,10 +21,10 @@
            </button>
            <ul id="dropdown-example" class="hidden py-2 space-y-2">
                  <li>
-                    <a routerLink="/ingredient-categories" routerLinkActive="active" side-nav-link class="side-nav-sub-link group">Ingredient Category</a>
+                    <a [routerLink]="['ingredient-categories']" routerLinkActive="active"  class="side-nav-sub-link group">Ingredient Category</a>
                  </li>
                  <li>
-                    <a routerLink="/recipe-categories" routerLinkActive="active"class="side-nav-sub-link group">Recipe Category</a>
+                    <a [routerLink]="['recipe-categories']" routerLinkActive="active"class="side-nav-sub-link group">Recipe Category</a>
                  </li>
            </ul>
         </li>

@@ -1,11 +1,12 @@
 import { Component, Input } from '@angular/core';
+import { Category } from '../../models/category/category.model';
 
 @Component({
-  selector: 'app-category-table',
+  selector: 'Category-Table',
   templateUrl: './category-table.component.html',
   styleUrls: ['./category-table.component.css']
 })
 export class CategoryTableComponent {
-   @Input() Category: any[] = []
+   @Input() Category: Category[] = []
    @Input() RowNames: string[] = []
 }

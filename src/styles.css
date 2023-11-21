@@ -12,7 +12,7 @@
   }
   .side-nav-sub-link
   {
-    @apply flex items-center w-full p-2 text-dark-soul-900 transition duration-75 rounded-lg pl-11  hover:bg-dark-soul-100
+    @apply flex items-center w-full p-2 text-dark-soul-900 transition duration-75 rounded-lg pl-11 cursor-pointer  hover:bg-dark-soul-100
   }
   .side-nav-icon
   {
