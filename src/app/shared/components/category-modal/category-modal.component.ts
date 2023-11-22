@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Category } from '../../models/category/category.model';
 import { IngredientCategoryService } from '../../services/ingredient-category.service';
 import { RecipeCategoryService } from '../../services/recipe-category.service';
+import { CommunicationService } from '../../services/communication.service';
 
 @Component({
   selector: 'Category-Modal',
@@ -25,7 +26,8 @@ export class CategoryModalComponent implements OnInit {
   constructor(
     private readonly fb: FormBuilder,
     private readonly ingredientService: IngredientCategoryService,
-    private readonly recipeService: RecipeCategoryService
+    private readonly recipeService: RecipeCategoryService,
+    private readonly communincationService: CommunicationService
   ) {
     this.formProcessed = false
   }
@@ -38,19 +40,38 @@ export class CategoryModalComponent implements OnInit {
   }
   save() {
     if (this.form.valid) {
+      const supportMessage: string = `Try again. If the issue persist contact our support team support@africuisine.com`;
       this.category.name = this.form.controls['name'].value
       this.category.description = this.form.controls['description'].value
       if (this.isModalIngredient == 'true') {
-        var response = this.ingredientService.create(this.category);
-        this.message = this.message,
-        this.succeeded = this.succeeded
-      }
-      if(this.isModalIngredient == 'false')
-      {
-         this.recipeService.create(this.category).subscribe((res) => {
-            this.message = res.message,
+        this.ingredientService.create(this.category).subscribe({
+          next: (res) => {
+            this.message = res.message
             this.succeeded = res.succeeded
-         })
+            this.form.reset()
+          },
+          error: (error) => {
+            this.message = `An unexpected error occured while attempting to ingredient recipe categories. ${supportMessage}`
+            this.succeeded = false
+            this.formProcessed = true
+          },
+          complete: () => { this.formProcessed = true }
+        });
+      }
+      if (this.isModalIngredient == 'false') {
+        this.recipeService.create(this.category).subscribe({
+          next: (res) => {
+            this.message = res.message
+            this.succeeded = res.succeeded
+            this.form.reset()
+          },
+          error: (error) => {
+            this.message = `An unexpected error occured while attempting to create recipe categories. ${supportMessage}`
+            this.succeeded = false
+            this.formProcessed = true
+          },
+          complete: () => { this.formProcessed = true; this.communincationService.notify() }
+        })
       }
     }
     const success = document.getElementById('')

@@ -4,7 +4,7 @@ import { SideNavigationComponent } from "./navigation/side/side-navigation.compo
 import { RouterModule } from "@angular/router";
 import { ContentLayoutComponent } from "./content-layout/content-layout-component";
 import { CategoryModalComponent } from "./category-modal/category-modal.component";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { SuccessToastComponent } from "./category-modal/toasts/success-toast/success-toast.component";
 import { ErrorToastComponent } from "./category-modal/toasts/error-toast/error-toast.component";
 import { CommonModule } from "@angular/common";
@@ -14,6 +14,6 @@ import { PageHeaderComponent } from "./page-header/page-header.component";
 @NgModule({
   declarations: [TopNavigationComponent, SideNavigationComponent, ContentLayoutComponent, CategoryModalComponent, SuccessToastComponent, ErrorToastComponent, EmptyStateComponent, PageHeaderComponent],
   exports: [TopNavigationComponent, SideNavigationComponent, ContentLayoutComponent, CategoryModalComponent, SuccessToastComponent, ErrorToastComponent, EmptyStateComponent, PageHeaderComponent],
-  imports:[RouterModule, ReactiveFormsModule, CommonModule]
+  imports:[RouterModule,FormsModule, ReactiveFormsModule, CommonModule]
 })
 export class SharedComponentModule {}

@@ -10,7 +10,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr class="border-b" *ngFor="let category of Category">
+      <tr class="border-b" *ngFor="let category of filteredCategories">
         <th scope="row" class="px-4 py-3 font-medium text-dark-soul-900 whitespace-nowrap dark:text-white">{{category.name}}</th>
         <td class="px-4 py-3">{{category.description}}</td>
         <td class="px-4 py-3 flex items-center justify-end">
@@ -44,17 +44,17 @@
   </table>
 </div>
 <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4"
-  aria-label="Table navigation" *ngIf="Category.length > 0">
+  aria-label="Table navigation" *ngIf="filteredCategories">
   <span class="text-sm font-normal text-dark-soul-500 ">
     Showing
-    <span class="font-semibold text-dark-soul-900 dark:text-white">1-10</span>
+    <span class="font-semibold text-dark-soul-900 dark:text-white">{{startFrom + 1}} &mdash; {{endIndex}}</span>
     of
-    <span class="font-semibold text-dark-soul-900 dark:text-white">{{Category.length}}</span>
+    <span class="font-semibold text-dark-soul-900 dark:text-white">{{categories.length}}</span>
   </span>
-  <ul class="inline-flex items-stretch -space-x-px" >
+  <ul class="inline-flex items-stretch -space-x-px">
     <li>
-      <a href="#"
-        class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-dark-soul-500 bg-white rounded-l-lg border border-dark-soul-300 hover:bg-dark-soul-100 hover:text-dark-soul-700 dark:bg-dark-soul-800 dark:border-dark-soul-700  dark:hover:bg-dark-soul-700 dark:hover:text-white">
+      <button type="button" (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1"
+        class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-dark-soul-500 bg-white rounded-l-lg border border-dark-soul-300 hover:bg-dark-soul-100 hover:text-dark-soul-700">
         <span class="sr-only">Previous</span>
         <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg">
@@ -62,30 +62,14 @@
             d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
             clip-rule="evenodd" />
         </svg>
-      </a>
+      </button>
+    </li>
+    <li *ngFor="let page of getPageList()">
+      <button [disabled]="currentPage === page"
+        class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-dark-soul-500 bg-white border border-dark-soul-300 hover:bg-dark-soul-100 hover:text-dark-soul-700">{{ page }}</button>
     </li>
     <li>
-      <a href="#"
-        class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-dark-soul-500 bg-white border border-dark-soul-300 hover:bg-dark-soul-100 hover:text-dark-soul-700 dark:bg-dark-soul-800 dark:border-dark-soul-700  dark:hover:bg-dark-soul-700 dark:hover:text-white">1</a>
-    </li>
-    <li>
-      <a href="#"
-        class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-dark-soul-500 bg-white border border-dark-soul-300 hover:bg-dark-soul-100 hover:text-dark-soul-700 dark:bg-dark-soul-800 dark:border-dark-soul-700  dark:hover:bg-dark-soul-700 dark:hover:text-white">2</a>
-    </li>
-    <li>
-      <a href="#" aria-current="page"
-        class="flex items-center justify-center text-sm z-10 py-2 px-3 leading-tight text-dark-soul-600 bg-dark-soul-50 border border-dark-soul-300 hover:bg-dark-soul-100 hover:text-dark-soul-700 dark:border-dark-soul-700 dark:bg-dark-soul-700 dark:text-white">3</a>
-    </li>
-    <li>
-      <a href="#"
-        class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-dark-soul-500 bg-white border border-dark-soul-300 hover:bg-dark-soul-100 hover:text-dark-soul-700 dark:bg-dark-soul-800 dark:border-dark-soul-700  dark:hover:bg-dark-soul-700 dark:hover:text-white">...</a>
-    </li>
-    <li>
-      <a href="#"
-        class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-dark-soul-500 bg-white border border-dark-soul-300 hover:bg-dark-soul-100 hover:text-dark-soul-700 dark:bg-dark-soul-800 dark:border-dark-soul-700  dark:hover:bg-dark-soul-700 dark:hover:text-white">100</a>
-    </li>
-    <li>
-      <a href="#"
+      <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages"
         class="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-dark-soul-500 bg-white rounded-r-lg border border-dark-soul-300 hover:bg-dark-soul-100 hover:text-dark-soul-700 dark:bg-dark-soul-800 dark:border-dark-soul-700  dark:hover:bg-dark-soul-700 dark:hover:text-white">
         <span class="sr-only">Next</span>
         <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20"
@@ -94,7 +78,7 @@
             d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
             clip-rule="evenodd" />
         </svg>
-      </a>
+      </button>
     </li>
   </ul>
 </nav>

@@ -20,12 +20,8 @@ export class IngredientCategoryService {
   }
   create(category: Category)
   {
-    var results: {succeded: boolean, message: string} ={ succeded: false, message: ''}
-    var response = this.httpClient.post<BaseResponse>(this.apiUrl, category).subscribe((res) => {
-           results.message = res.message
-           results.succeded = res.succeeded
-    });
-    return results;
+    var response = this.httpClient.post<BaseResponse>(this.apiUrl, category)
+    return response;
   }
 
 }

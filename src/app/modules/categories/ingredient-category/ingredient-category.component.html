@@ -29,7 +29,7 @@
           </button>
         </div>
       </div>
-      <Category-Table *ngIf="categories.length > 0" [Category]="categories"/>
+      <Category-Table *ngIf="categories.length > 0" [categories]="categories" [pageSize]="5"/>
       <Empty-State *ngIf="categories.length == 0"/>
     </div>
   </div>
