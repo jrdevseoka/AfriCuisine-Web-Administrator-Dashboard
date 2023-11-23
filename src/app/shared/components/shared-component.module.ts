@@ -10,10 +10,12 @@ import { ErrorToastComponent } from "./category-modal/toasts/error-toast/error-t
 import { CommonModule } from "@angular/common";
 import { EmptyStateComponent } from "./empty-state/empty-state.component";
 import { PageHeaderComponent } from "./page-header/page-header.component";
+import { SearchTableComponent } from "./search-table/search-table.component";
+import { TableNavigationComponent } from "./navigation/table/table-navigation.component";
 
 @NgModule({
-  declarations: [TopNavigationComponent, SideNavigationComponent, ContentLayoutComponent, CategoryModalComponent, SuccessToastComponent, ErrorToastComponent, EmptyStateComponent, PageHeaderComponent],
-  exports: [TopNavigationComponent, SideNavigationComponent, ContentLayoutComponent, CategoryModalComponent, SuccessToastComponent, ErrorToastComponent, EmptyStateComponent, PageHeaderComponent],
+  declarations: [TopNavigationComponent, SearchTableComponent, SideNavigationComponent, ContentLayoutComponent, CategoryModalComponent, SuccessToastComponent, ErrorToastComponent, EmptyStateComponent, PageHeaderComponent, TableNavigationComponent],
+  exports: [TopNavigationComponent, SearchTableComponent, SideNavigationComponent, ContentLayoutComponent, CategoryModalComponent, SuccessToastComponent, ErrorToastComponent, EmptyStateComponent, PageHeaderComponent, TableNavigationComponent],
   imports:[RouterModule,FormsModule, ReactiveFormsModule, CommonModule]
 })
 export class SharedComponentModule {}

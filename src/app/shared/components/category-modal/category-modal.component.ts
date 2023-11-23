@@ -9,7 +9,7 @@ import { CommunicationService } from '../../services/communication.service';
   selector: 'Category-Modal',
   templateUrl: './category-modal.component.html',
 })
-export class CategoryModalComponent implements OnInit {
+export class CategoryModalComponent  {
   @Input() isModalIngredient: string = '';
   @Input() modalTitle: string = '';
   @Input() buttonText: string = '';
@@ -29,14 +29,11 @@ export class CategoryModalComponent implements OnInit {
     private readonly recipeService: RecipeCategoryService,
     private readonly communincationService: CommunicationService
   ) {
-    this.formProcessed = false
-  }
-  ngOnInit(): void {
     this.form = this.fb.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
     });
-
+    this.formProcessed = false
   }
   save() {
     if (this.form.valid) {

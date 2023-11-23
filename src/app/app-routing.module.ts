@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { RecipeCategoryComponent } from './modules/categories/recipe-category/recipe-category.component';
 import { IngredientCategoryComponent } from './modules/categories/ingredient-category/ingredient-category.component';
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
+import { IngredientComponent } from './modules/ingredients/ingredient.component';
 
 const routes: Routes = [{
   title: 'Africuisine Admin | Ingredient Categories',
@@ -18,6 +19,11 @@ const routes: Routes = [{
   title: 'Africuisine Admin | Recipe Categories',
   path: 'recipe-categories',
   component: RecipeCategoryComponent
+},
+{
+  title: 'Africuisine Admin | Ingredients',
+  path: 'ingredients',
+  component: IngredientComponent
 }];
 
 @NgModule({
