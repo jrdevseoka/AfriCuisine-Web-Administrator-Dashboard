@@ -1,21 +1,27 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardLayoutComponent } from './shared/components/layout/dashboard-layout.component';
+import { AuthenticationLayoutComponent } from './shared/components/layout/login/auth-layout.component';
+import { LoginComponent } from './modules/auth/login/login.component';
+import { PasswordResetComponent } from './modules/auth/password/reset/reset-password.component';
+import { FeatureModule } from './modules/feature.module';
 const routes: Routes = [
   {
     path: '',
-    component: DashboardLayoutComponent,
+    component: AuthenticationLayoutComponent,
     children: [
-      {
-        path: 'dashboard', loadChildren: () => import('../app/modules/feature.module').then(m => m.FeatureModule)
-      }
+      { path: '', component: LoginComponent, redirectTo: 'login', pathMatch: 'full' },
+      { path: 'login', component: LoginComponent },
+      { path: 'reset-password', component: PasswordResetComponent },
+      { path: 'update-password', component: PasswordResetComponent }
     ]
   },
-  { path: '***', redirectTo: '/login', pathMatch: 'full'}
+  {
+    path: 'dashboard',
+    loadChildren: () => import('./modules/feature.module').then((m) => m.FeatureModule)
+  }
 ]
-
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes), FeatureModule],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
