@@ -14,9 +14,10 @@ import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { IngredientComponent } from './modules/ingredients/ingredient.component';
 import { IngredientModule } from './modules/ingredients/ingredient.module';
 import { FeatureModule } from './modules/feature.module';
+import { LoginComponent } from './modules/auth/login/login.component';
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent, LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +25,7 @@ import { FeatureModule } from './modules/feature.module';
     ReactiveFormsModule,
     SharedComponentModule,
     HttpClientModule,
-    FeatureModule
+    FeatureModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
