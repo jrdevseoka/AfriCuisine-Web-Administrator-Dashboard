@@ -13,21 +13,18 @@ import { SharedComponentModule } from './shared/components/shared-component.modu
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { IngredientComponent } from './modules/ingredients/ingredient.component';
 import { IngredientModule } from './modules/ingredients/ingredient.module';
+import { FeatureModule } from './modules/feature.module';
 @NgModule({
   declarations: [
     AppComponent,
-    RecipeCategoryComponent,
-    IngredientCategoryComponent,
-    CategoryTableComponent,
-    DashboardComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule,
     SharedComponentModule,
-    IngredientModule
+    HttpClientModule,
+    FeatureModule
   ],
   providers: [],
   bootstrap: [AppComponent]
