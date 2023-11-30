@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { initFlowbite } from 'flowbite';
+import { AuthService } from './shared/services/auth.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,8 +10,12 @@ import { initFlowbite } from 'flowbite';
 export class AppComponent implements OnInit {
 
   title = 'AfriCuisine | Administrator';
-  ngOnInit(): void {
+  authenticated: boolean = false
+   constructor(private authService: AuthService){}
+  ngOnInit(): void
+  {
     initFlowbite();
+    this.authenticated = this.authService.getAuthStatus()
   }
   logOut()
   {

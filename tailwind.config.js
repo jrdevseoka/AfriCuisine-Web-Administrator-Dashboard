@@ -9,6 +9,7 @@ module.exports = {
     extend: {},
     colors: {
       'dark-soul': {
+        50: "#e4e7ec",
         100: "#e7e9ed",
         200: "#b6beca",
         300: "#8693a7",
