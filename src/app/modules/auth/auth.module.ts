@@ -1,3 +1,4 @@
+import { AuthComponent } from './auth.component';
 import { NgModule } from "@angular/core";
 import { LoginComponent } from "./login/login.component";
 import { PasswordResetComponent } from "./password/reset/reset-password.component";
@@ -8,7 +9,7 @@ import { SharedComponentModule } from "src/app/shared/shared-component.module";
 import { RouterModule } from "@angular/router";
 
 @NgModule({
-  declarations: [LoginComponent, PasswordResetComponent, PasswordUpdateComponent],
+  declarations: [AuthComponent,LoginComponent, PasswordResetComponent, PasswordUpdateComponent],
   imports: [CommonModule, RouterModule, ReactiveFormsModule, SharedComponentModule],
   exports: [LoginComponent, PasswordResetComponent, PasswordUpdateComponent]
 })

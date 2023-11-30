@@ -30,12 +30,6 @@ export class DashboardComponent implements OnInit {
       }
     }
   }
-
-  async getAuthStatus() {
-    await firstValueFrom(this.authService.authenticated$).then((status) => {
-      this.authStatus = status
-    })
-  }
   getStoredToken() {
     const token = sessionStorage.getItem('token')
     if(typeof token === 'string' && token.trim() !== '')
