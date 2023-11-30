@@ -11,14 +11,12 @@ export class AppComponent implements OnInit {
 
   title = 'AfriCuisine | Administrator';
   authenticated: boolean = false
-   constructor(private authService: AuthService){}
-  ngOnInit(): void
-  {
+  constructor(private authService: AuthService,
+    private router: Router) { }
+  ngOnInit(): void {
     initFlowbite();
-    this.authenticated = this.authService.getAuthStatus()
   }
-  logOut()
-  {
+  logOut() {
 
   }
 }

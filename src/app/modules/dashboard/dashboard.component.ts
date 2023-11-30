@@ -11,31 +11,10 @@ import { getToken } from "src/app/app.module";
 })
 export class DashboardComponent implements OnInit {
   profile: Profile
-  authStatus: boolean = false
-  constructor(private authService: AuthService,
-    private jwtService: JwtHelperService) {
-    this.profile = { email: '', name: '', id: '' }
+  constructor(private auth: AuthService) {
+    this.profile = { name: '', email: '', id: ''}
   }
   ngOnInit(): void {
-    this.authStatus = this.authService.getAuthStatus()
-    this.getAuthenticatedProfile()
-  }
-
-  getAuthenticatedProfile() {
-    if (this.authStatus) {
-      const token = getToken()
-      if (token) {
-        const claim = this.jwtService.decodeToken(token)
-         this.profile = this.authService.getAuthorizedUserProfile(claim.email).item
-      }
-    }
-  }
-  getStoredToken() {
-    const token = sessionStorage.getItem('token')
-    if(typeof token === 'string' && token.trim() !== '')
-    {
-      return token
-    }
-    return null
+    this.profile = this.auth.getAuthorizedProfile()
   }
 }

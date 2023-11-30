@@ -48,11 +48,11 @@ export class LoginComponent {
         next: (res) => {
           this.reponse = res
           sessionStorage.setItem('token', this.reponse.token);
-          this.authService.setAuthState(res.succeeded)
-          this.authService.getAuthorizedUserProfile(form.username)
+          this.authService.getUserProfile(form.username)
         },
         error: (e) => {
-          (this.reponse = e), (this.processed = true);
+          this.reponse = e
+          this.processed = true;
         },
         complete: () => {
           this.processed = true;

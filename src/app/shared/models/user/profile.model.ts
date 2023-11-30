@@ -3,8 +3,9 @@ import { Role } from "./role.model"
 
 export interface Profile{
   id: string
-  name: string
   email: string
+  name: string
+  token?: string
   role?: Role
   picture?: ProfilePicture
 }
