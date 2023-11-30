@@ -9,7 +9,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SharedComponentModule } from './shared/shared-component.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { JwtModule, JwtModuleOptions } from '@auth0/angular-jwt';
-import { AuthGuard } from './shared/guards/auth.guard';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
 export const getToken = () => {
   return localStorage.getItem("token");
