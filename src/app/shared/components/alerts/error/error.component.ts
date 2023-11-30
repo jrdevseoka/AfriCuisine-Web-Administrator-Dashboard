@@ -1,7 +1,9 @@
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
 
 @Component({
   selector: 'Error-Alert',
   templateUrl: './error.component.html'
 })
-export class ErrorAlertComponent {}
+export class ErrorAlertComponent {
+  @Input() message: string = ''
+}

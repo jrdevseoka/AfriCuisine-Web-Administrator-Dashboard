@@ -4,10 +4,12 @@ import { DashboardComponent } from "./dashboard.component";
 import { HomeComponent } from "./home/home.component";
 import { IngrCategoryComponent } from "./ingredients/categories/ingr-category.component";
 import { IngredientComponent } from "./ingredients/ingredients/ingredient.component";
+import { AuthGuard } from "src/app/shared/guards/auth.guard";
 
 const routes: Routes = [
   {
     path: 'dashboard',
+    canActivate: [AuthGuard],
     component: DashboardComponent,
     children: [
       {path: 'home', component: HomeComponent},

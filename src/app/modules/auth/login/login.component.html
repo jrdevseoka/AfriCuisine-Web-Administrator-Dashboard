@@ -14,6 +14,7 @@
  <div class="flex justify-end">
   <a class="text-sm text-devilish-500 font-bold hover:text-base hover:animate-pulse hover:duration-75" [routerLink]="['reset-password']">Forgot password?</a>
  </div>
- <button type="submit" class="w-full bg-devilish-500 text-white text-center font-semibold px-5 py-2.5 hover:bg-devilish-800 focus:outline focus:ring-4
-  focus:ring-devilish-400 ">Login to your account</button>
+ <button [disabled]="submtting" type="submit" class="w-full bg-devilish-500 text-white text-center font-semibold px-5 py-2.5 hover:bg-devilish-800 focus:outline focus:ring-4
+  focus:ring-devilish-400 rounded-lg">Login to your account</button>
+  <Error-Alert *ngIf="processed && !reponse.succeeded" [message]="reponse.message!" />
 </form>

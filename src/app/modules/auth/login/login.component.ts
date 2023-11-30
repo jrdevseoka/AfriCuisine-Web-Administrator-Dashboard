@@ -13,6 +13,7 @@ export class LoginComponent {
   form: FormGroup;
   processed: boolean;
   reponse: AuthResponse;
+  submtting: boolean = false;
   constructor(
     private readonly fb: FormBuilder,
     private readonly router: Router,
@@ -35,28 +36,34 @@ export class LoginComponent {
     };
     if (this.form.invalid) {
       (this.reponse.message = 'Invalid user credentials'),
-        (this.reponse.succeeded = false);
+      (this.reponse.succeeded = false);
+      this.submtting = false;
       this.processed = true;
     }
     this.processed = false;
-
-    this.authService.signIn(form).subscribe({
-      next: (res) => {
-        this.reponse = res
-        localStorage.setItem('token', this.reponse.token);
-        this.authService.setAuthState(res.succeeded)
-        this.authService.getAuthorizedUserProfile(form.username)
-      },
-      error: (e) => {
-        (this.reponse = e), (this.processed = true);
-      },
-      complete: () => {
-        this.processed = true;
-        if(this.reponse.succeeded)
-        {
-          this.router.navigate(['dashboard']);
-        }
-      },
-    });
+    if(this.form.valid)
+    {
+      this.submtting = true
+      this.authService.signIn(form).subscribe({
+        next: (res) => {
+          this.reponse = res
+          sessionStorage.setItem('token', this.reponse.token);
+          this.authService.setAuthState(res.succeeded)
+          this.authService.getAuthorizedUserProfile(form.username)
+        },
+        error: (e) => {
+          (this.reponse = e), (this.processed = true);
+        },
+        complete: () => {
+          this.processed = true;
+          if(this.reponse.succeeded)
+          {
+            this.form.reset();
+            this.router.navigate(['dashboard']);
+            this.submtting = false
+          }
+        },
+      });
+    }
   }
 }
