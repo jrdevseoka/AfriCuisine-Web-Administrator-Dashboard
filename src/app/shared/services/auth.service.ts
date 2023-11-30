@@ -17,7 +17,6 @@ export class AuthService {
   private endpoint = `${enviroment.apiUrl}/auth`
 
   private profileSub: BehaviorSubject<Profile>
-  public  profile: Observable<Profile>
   user: Profile
 
   private itemResponse: QueryItemResponse<Profile>
@@ -31,7 +30,6 @@ export class AuthService {
     this.errorResponse = { succeeded: false }
     this.user = { email: '', name: '', id: '' }
     this.profileSub = new BehaviorSubject<Profile>(this.user)
-    this.profile = this.profileSub.asObservable()
   }
 
   signIn(user: AuthCommand) {
@@ -75,12 +73,7 @@ export class AuthService {
     }
     return false
   }
-  getAuthorizedProfile()
-  {
-     return this.profileSub.value
-  }
-  public getAuthStatus() {
-    let status: boolean = false
-    return status
+  User = () => {
+    return this.profileSub.asObservable()
   }
 }

@@ -12,6 +12,5 @@ export class HomeComponent{
     this.profile = { name: '', email: '', id: ''}
   }
   ngOnInit(): void {
-    this.profile = this.auth.getAuthorizedProfile()
   }
 }

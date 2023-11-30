@@ -9,11 +9,14 @@ export class AuthGuard implements CanActivate {
     private authService: AuthService) {
   }
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-    if (this.authService.getAuthorizedProfile())
-    {
-       return true
-    }
-    return false;
+    let succeeded: boolean = false
+    this.authService.User().subscribe((user) => {
+      if(user)
+      {
+        succeeded = true
+      }
+    })
+    return succeeded
   }
 
 }

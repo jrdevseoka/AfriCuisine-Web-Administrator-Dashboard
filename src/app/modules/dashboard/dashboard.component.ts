@@ -11,10 +11,15 @@ import { getToken } from "src/app/app.module";
 })
 export class DashboardComponent implements OnInit {
   profile: Profile
-  constructor(private auth: AuthService) {
-    this.profile = { name: '', email: '', id: ''}
+  constructor(private auth: AuthService, private jwt: JwtHelperService) {
+    this.profile = { name: '', email: '', id: '' }
   }
   ngOnInit(): void {
-    this.profile = this.auth.getAuthorizedProfile()
+    const token = sessionStorage.getItem("token");
+    const claims = this.jwt.decodeToken(token!);
+    this.auth.getUserProfile(claims.email);
+    this.auth.User().subscribe((user) => {
+      this.profile = user
+    })
   }
 }
