@@ -8,18 +8,20 @@ import { AuthGuard } from "src/app/shared/guards/auth.guard";
 
 const routes: Routes = [
   {
-    path: 'dashboard',
-    canActivate: [AuthGuard],
+    path: '',
     component: DashboardComponent,
+    canActivateChild: [AuthGuard],
     children: [
-      {path: 'home', component: HomeComponent},
-      {path: 'ingredient-categories', component: IngrCategoryComponent},
-      {path: 'ingredients', component: IngredientComponent},
-      {path: '', pathMatch: "full", redirectTo: '/home'},
+      { path: 'dashboard', component: HomeComponent ,},
+      { path: 'ingredient-categories', component: IngrCategoryComponent },
+      { path: 'ingredients', component: IngredientComponent },
+      { path: '**', redirectTo: 'dashboard', pathMatch: 'full' } // Redirect to 'dashboard/home'
     ]
   }
 ]
+
 @NgModule({
-  imports: [RouterModule.forChild(routes)]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
 })
-export class DashboardRoutingModule {}
+export class DashboardRoutingModule { }

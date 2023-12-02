@@ -12,6 +12,7 @@ import { JwtModule, JwtModuleOptions } from '@auth0/angular-jwt';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { ErrorInterceptor } from './shared/helpers/interceptors/error.interceptor';
+import { PreloaderService } from './shared/services/preloader.service';
 export const getToken = () => {
   return sessionStorage.getItem("token");
 }
@@ -38,7 +39,7 @@ const jwtOptions: JwtModuleOptions = {
     DashboardModule,
     JwtModule.forRoot(jwtOptions)
   ],
-  providers: [[AuthGuard], {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},],
+  providers: [PreloaderService,[AuthGuard], {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},],
   bootstrap: [AppComponent]
 })
 

@@ -8,7 +8,7 @@
                <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
             </svg>
          </button>
-        <a routerlink="/" class="cursor-pointer flex ms-2 md:me-24">
+        <a [routerLink]="['home']" class="cursor-pointer flex ms-2 md:me-24">
           <img src="assets/svg/logo.svg" class="h-8 me-3" alt="FlowBite Logo" />
           <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap">AfriCuisine</span>
         </a>
@@ -18,7 +18,7 @@
             <div>
               <button type="button" class="flex text-sm bg-devilish-500 rounded-full focus:ring-4 focus:ring-dark-soul-500" aria-expanded="false" data-dropdown-toggle="dropdown-user">
                 <span class="sr-only">Open user menu</span>
-                <img class="w-8 h-8 rounded-full" src="assets\uploads\users\profile-picture.jpg" alt="user photo">
+                <img class="w-8 h-8 rounded-full" src="{{user.picture?.path}}" alt="{{user.name}} Profile Photo">
               </button>
             </div>
             <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-dark-soul-100 rounded shadow" id="dropdown-user">
@@ -27,7 +27,7 @@
                   {{user.name}}
                 </p>
                 <p class="text-sm font-medium text-dark-soul-900 truncate" role="none">
-                  neil.sims@flowbite.com
+                 {{user.email}}
                 </p>
               </div>
               <ul class="py-1" role="none">

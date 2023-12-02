@@ -4,9 +4,10 @@ import { TopNavComponent } from './components/navigation/top/top-navigation.comp
 import { ErrorAlertComponent } from './components/alerts/error/error.component';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { PreloaderComponent } from './components/preloader/preloader.component';
 @NgModule({
-  declarations: [SideNavComponent, TopNavComponent, ErrorAlertComponent],
+  declarations: [SideNavComponent, TopNavComponent, ErrorAlertComponent, PreloaderComponent],
   imports: [CommonModule, RouterModule],
-  exports: [SideNavComponent, TopNavComponent, ErrorAlertComponent],
+  exports: [SideNavComponent, TopNavComponent, ErrorAlertComponent, PreloaderComponent],
 })
 export class SharedComponentModule {}

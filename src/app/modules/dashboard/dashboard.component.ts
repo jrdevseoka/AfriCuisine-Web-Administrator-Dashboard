@@ -1,9 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { Profile } from "src/app/shared/models/user/profile.model";
 import { AuthService } from "src/app/shared/services/auth.service";
-import { firstValueFrom } from 'rxjs'
 import { JwtHelperService } from "@auth0/angular-jwt";
-import { getToken } from "src/app/app.module";
+import { initFlowbite } from "flowbite";
+import { ActivatedRoute, Data } from "@angular/router";
+import { PreloaderService } from "src/app/shared/services/preloader.service";
 
 @Component({
   templateUrl: './dashboard.component.html',
@@ -11,15 +12,13 @@ import { getToken } from "src/app/app.module";
 })
 export class DashboardComponent implements OnInit {
   profile: Profile
-  constructor(private auth: AuthService, private jwt: JwtHelperService) {
-    this.profile = { name: '', email: '', id: '' }
+  completed: boolean = false
+  constructor(private route: ActivatedRoute,
+    private readonly preloader: PreloaderService) {
+      this.profile = {name: '', id: '', email: ''}
   }
-  ngOnInit(): void {
-    const token = sessionStorage.getItem("token");
-    const claims = this.jwt.decodeToken(token!);
-    this.auth.getUserProfile(claims.email);
-    this.auth.User().subscribe((user) => {
-      this.profile = user
-    })
+  async ngOnInit(): Promise<void> {
+    this.profile = await this.route.snapshot.data['profile']
+    this.completed = true
   }
 }

@@ -4,7 +4,7 @@ import { Injectable } from "@angular/core";
 import { enviroment } from "src/app/env/env.config";
 import { AuthCommand } from "../models/res/commands/auth/auth.command";
 import { AuthResponse } from "../models/res/auth-reponse";
-import { BehaviorSubject, Observable, Subject, take, throwError } from "rxjs";
+import { BehaviorSubject, catchError,  tap,  of, Observable } from "rxjs";
 import { Profile } from "../models/user/profile.model";
 import { UserService } from "./user.service";
 import { QueryItemResponse } from "../models/res/query-item.reponse";
@@ -36,19 +36,19 @@ export class AuthService {
     const response = this.http.post<AuthResponse>(this.endpoint, user)
     return response;
   }
-  getUserProfile(email: string) {
-    this.userService.getProfile(email).subscribe({
-      next: (res) => {
-        const token: string = sessionStorage.getItem("token")!;
-        this.user = { token: token, ...res.item }
+  getUserProfile(email: string ):Observable<QueryItemResponse<Profile>> {
+    const token: string = sessionStorage.getItem("token")!;
+    return this.userService.getProfile(email).pipe(
+      tap((res) => {
+        this.user = { token, ...res.item };
         this.profileSub.next(this.user);
-      },
-      error: (err: ErrorResponse) => {
-        this.errorResponse = err
-        this.itemResponse.error = this.errorResponse
-        throwError(() => this.itemResponse)
-      }
-    })
+      }),
+      catchError((err: ErrorResponse) => {
+        this.errorResponse = err;
+        this.itemResponse.error = this.errorResponse;
+        return of(this.itemResponse);
+      })
+    );
   }
   public isUserRestricted = () => {
     if (sessionStorage.getItem("token") && sessionStorage.getItem("token")?.trim() != '') {
@@ -75,5 +75,14 @@ export class AuthService {
   }
   User = () => {
     return this.profileSub.asObservable()
+  }
+  getUser(email:string)
+  {
+    let profile;
+    this.getUserProfile(email);
+    this.User().subscribe((user) => {
+      profile = user
+    })
+    return profile
   }
 }
