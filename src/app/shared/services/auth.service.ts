@@ -32,7 +32,7 @@ export class AuthService {
     this.profileSub = new BehaviorSubject<Profile>(this.user)
   }
 
-  signIn(user: AuthCommand) {
+  signInWithEmailAndPassword(user: AuthCommand) {
     const response = this.http.post<AuthResponse>(this.endpoint, user)
     return response;
   }
@@ -61,7 +61,7 @@ export class AuthService {
     }
     return false
   }
-  public IsUserSuper = () => {
+  public isUserSuper = () => {
 
     if (sessionStorage.getItem("token") && sessionStorage.getItem("token")?.trim() != '') {
       const token = sessionStorage.getItem("token")
@@ -76,13 +76,20 @@ export class AuthService {
   User = () => {
     return this.profileSub.asObservable()
   }
-  getUser(email:string)
+  IsLoggedIn(token: string)
   {
-    let profile;
-    this.getUserProfile(email);
-    this.User().subscribe((user) => {
-      profile = user
-    })
-    return profile
+    if(token !== null && token.trim() !== '')
+    {
+      if(this.jwtService.isTokenExpired(token))
+      {
+          var claims = this.jwtService.decodeToken(token)
+          const role = claims['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']
+          if(role === 'Super' || role === 'Restricted')
+          {
+              return true
+          }
+      }
+    }
+    return false
   }
 }

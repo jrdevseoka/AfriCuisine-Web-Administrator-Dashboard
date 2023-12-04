@@ -17,8 +17,8 @@ export class DashboardComponent implements OnInit {
     private readonly preloader: PreloaderService) {
       this.profile = {name: '', id: '', email: ''}
   }
-  async ngOnInit(): Promise<void> {
-    this.profile = await this.route.snapshot.data['profile']
+  ngOnInit(): void {
+    this.profile = this.route.snapshot.data['user']
     this.completed = true
   }
 }
