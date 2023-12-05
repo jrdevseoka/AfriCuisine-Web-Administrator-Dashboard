@@ -6,16 +6,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { SharedComponentModule } from './shared/shared-component.module';
-import { AuthModule } from './modules/auth/auth.module';
 import { JwtModule, JwtModuleOptions } from '@auth0/angular-jwt';
-import { DashboardModule } from './modules/dashboard/dashboard.module';
-import { ErrorInterceptor } from './shared/helpers/interceptors/error.interceptor';
-import { PreloaderService } from './shared/services/preloader.service';
 import { CloudinaryModule } from '@cloudinary/ng';
-import { provideRouter } from '@angular/router';
-import { DashboardComponent } from './modules/dashboard/dashboard.component';
-import { AuthGuard } from './shared/guards/dashboard.guard';
+import { Router } from '@angular/router';
 export const getToken = () => {
   return sessionStorage.getItem("token");
 }
@@ -36,27 +29,23 @@ const jwtOptions: JwtModuleOptions = {
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    SharedComponentModule,
     HttpClientModule,
-    AuthModule,
     CloudinaryModule,
-    DashboardModule,
     JwtModule.forRoot(jwtOptions)
   ],
-  providers: [PreloaderService, {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
-   provideRouter([
-    {
-      path: 'dashboard',
-      component: DashboardComponent,
-      canActivate: [AuthGuard]
-    }
-   ])],
+  providers: [],
   bootstrap: [AppComponent]
 })
 
 export class AppModule implements OnInit {
+  constructor(private router: Router) {}
   ngOnInit(): void {
     initFlowbite();
+    const token: string | null = sessionStorage.getItem("token")
+    if(token && typeof token === 'string' && token.trim() !== '')
+    {
+       this.router.navigate(['dashboard'])
+    }
   }
 }
 
