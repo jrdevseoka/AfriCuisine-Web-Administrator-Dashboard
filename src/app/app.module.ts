@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { JwtModule, JwtModuleOptions } from '@auth0/angular-jwt';
 import { CloudinaryModule } from '@cloudinary/ng';
 import { Router } from '@angular/router';
+import { AuthModule } from './modules/auth/auth.module';
 export const getToken = () => {
   return sessionStorage.getItem("token");
 }
@@ -31,6 +32,7 @@ const jwtOptions: JwtModuleOptions = {
     ReactiveFormsModule,
     HttpClientModule,
     CloudinaryModule,
+    AuthModule,
     JwtModule.forRoot(jwtOptions)
   ],
   providers: [],

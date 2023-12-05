@@ -19,15 +19,13 @@
     @apply w-5 h-5 text-dark-soul-500 transition duration-75 active:text-devilish-500
   }
 
-  .africuisine-label
+  .label
   {
 
     @apply block mb-2 text-sm font-medium text-dark-soul-900
   }
-  .africuisine-form-control
+  .form-control
   {
-    @apply bg-dark-soul-50 border border-dark-soul-300
-    text-dark-soul-500 text-sm rounded-lg w-full block
-    focus:border-dark-soul-500 p-2.5 focus:bg-gray-50
+    @apply bg-gray-50 border border-dark-soul-300 text-dark-soul-300 sm:text-sm rounded-lg focus:ring-dark-soul-500 focus:border-dark-soul-500 block w-full p-2.5
   }
 }

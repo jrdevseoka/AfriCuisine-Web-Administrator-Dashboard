@@ -1,0 +1,11 @@
+<main class="bg-gray-100 ">
+  <div class="flex flex-col items-center justify-center px-6 pt-8 mx-auto md:h-screen pt:mt-0">
+    <a [routerLink]="['']" class="flex items-center text-dark-soul-500 justify-center mb-8 text-3xl font-semibold lg:mb-10">
+      <img src="assets/svg/logo.svg" class="mr-4 h-11" alt="AfriCuisine Logo">
+      <span>Africuisine</span>
+    </a>
+    <div class="w-full max-w-xl p-6 space-y-8 sm:p-8 bg-white rounded-lg shadow">
+      <router-outlet />
+    </div>
+  </div>
+</main>

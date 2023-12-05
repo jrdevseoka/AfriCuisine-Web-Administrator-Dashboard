@@ -4,14 +4,22 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AuthComponent } from './auth.component';
 
 const routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'reset-password', component: ResetPasswordComponent },
+  {
+    path: '',
+    component: AuthComponent,
+    children: [
+      { path: 'login', component: LoginComponent },
+      { path: 'reset-password', component: ResetPasswordComponent },
+      // { path: 'update-password', component: PasswordUpdateComponent },
+    ],
+  },
 ];
-
 @NgModule({
-  declarations: [LoginComponent, ResetPasswordComponent],
-  imports: [RouterModule.forChild(routes)],
+  declarations: [AuthComponent, LoginComponent, ResetPasswordComponent],
+  imports: [RouterModule.forChild(routes), ReactiveFormsModule],
 })
-export class AuthModule {}
+export class AuthModule { }
