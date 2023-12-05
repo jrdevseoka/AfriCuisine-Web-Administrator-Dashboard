@@ -1,36 +1,30 @@
-import { AfterViewChecked, Component, Input, OnChanges, OnInit, SimpleChanges } from "@angular/core";
+import { AfterContentChecked, AfterViewChecked, Component, Input, OnChanges, OnInit, SimpleChanges } from "@angular/core";
 import { Dismiss, DismissOptions, InstanceOptions, initDismisses } from "flowbite";
 
 @Component({
   selector: 'Error-Alert',
   templateUrl: './error-alert.component.html'
 })
-export class ErrorAlertComponent implements OnChanges {
-
+export class ErrorAlertComponent implements AfterContentChecked {
 
   @Input() message: string = ''
-  ngOnChanges(changes: SimpleChanges): void {
-    if ('message' in changes) {
+  ngAfterContentChecked(): void {
+    if (this.message && this.message.trim() !== '') {
+      initDismisses()
 
-      const message: string = changes["message"].currentValue
-      if (message && message.trim() !== '') {
-        initDismisses()
+      const $alertEl = document.getElementById('error-alert')
+      const $closeAlertEl = document.getElementById('close-error-alert')
 
-        const $alertEl = document.getElementById('error-alert')
-        const $closeAlertEl = document.getElementById('close-error-alert')
-
-        const options: DismissOptions = {
-          transition: 'transition-opacity',
-          duration: 1000,
-          timing: 'ease-out',
-        }
-        const instanceOpts: InstanceOptions = {
-          id: 'error-alert',
-          override: true
-        }
-        const dismiss = new Dismiss($alertEl, $closeAlertEl, options, instanceOpts)
-        dismiss.hide()
+      const options: DismissOptions = {
+        transition: 'transition-opacity',
+        duration: 1000,
+        timing: 'ease-out',
       }
+      const instanceOpts: InstanceOptions = {
+        id: 'error-alert',
+        override: true
+      }
+      const dismiss = new Dismiss($alertEl, $closeAlertEl, options, instanceOpts)
     }
   }
 }

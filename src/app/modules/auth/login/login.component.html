@@ -2,9 +2,7 @@
   Sign in to platform
 </h2>
 <form class="mt-8 space-y-6" (submit)="onSubmit()" [formGroup]="loginForm" novalidate>
-  <div *ngIf="processed">
-     <Error-Alert *ngIf="!succeeded" [message]="reponse.message!" />
-  </div>
+  <Error-Alert *ngIf="show()" [message]="reponse.message!"/>
   <div>
     <label for="username" class="block mb-2 text-sm font-medium text-gray-900 ">Your email</label>
     <input type="email"id="email"

@@ -48,6 +48,7 @@ export class LoginComponent {
        }
        this.submitting = false
        this.processed = true
+       this.loginForm.reset()
     })
 
   }
@@ -66,5 +67,9 @@ export class LoginComponent {
       username: form.get('username')?.value,
     }
     return command
+  }
+  show()
+  {
+     return this.processed && !this.reponse.succeeded && this.reponse.message?.trim() !== ''
   }
 }
