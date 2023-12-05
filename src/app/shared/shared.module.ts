@@ -2,11 +2,12 @@ import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
+import { ErrorAlertComponent } from "./alerts/error/error-alert.component";
 
 @NgModule({
-  declarations: [],
+  declarations: [ErrorAlertComponent],
   imports: [CommonModule, ReactiveFormsModule],
-  exports: []
+  exports: [ErrorAlertComponent]
 })
 export class SharedComponentsModule{}
 

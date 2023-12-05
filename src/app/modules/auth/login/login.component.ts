@@ -12,9 +12,11 @@ import { AuthResponse } from "src/app/shared/res/auth.response";
 export class LoginComponent {
   loginForm: FormGroup
 
-  processed: boolean;
-  reponse: AuthResponse;
+  reponse: AuthResponse
+
+  processed: boolean
   submitting: boolean
+  succeeded: boolean = false
   constructor(
     private fb: FormBuilder,
     private readonly auth: AuthService,
@@ -37,6 +39,7 @@ export class LoginComponent {
     const command = this.mapToAuthCommand(this.loginForm)
     this.auth.signInWithEmailAndPassword(command).subscribe((res) => {
        this.reponse = res
+       this.succeeded = res.succeeded
        if(res.succeeded)
        {
         this.submitting = false

@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthComponent } from './auth.component';
+import { SharedComponentsModule } from 'src/app/shared/shared.module';
 
 const routes = [
   {
@@ -20,6 +21,6 @@ const routes = [
 ];
 @NgModule({
   declarations: [AuthComponent, LoginComponent, ResetPasswordComponent],
-  imports: [RouterModule.forChild(routes), ReactiveFormsModule],
+  imports: [RouterModule.forChild(routes), ReactiveFormsModule, SharedComponentsModule],
 })
 export class AuthModule { }
