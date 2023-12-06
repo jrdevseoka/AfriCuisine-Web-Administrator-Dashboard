@@ -1,27 +1,46 @@
-# AfricuisineDashboard
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.2.
+# AfriCuisine-Web-Administrator-Dashboard
 
-## Development server
+Intercultural Food Cuisine Web Dashboard: Explore diverse culinary traditions worldwide with recipe search, cultural info, ingredient database, translation support, and more. Build apps that celebrate intercultural cuisine!
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Enabling HTTPS for Development
 
-## Code scaffolding
+This section provides step-by-step instructions on how to enable HTTPS for your development environment in the "AfriCuisine-Web-Administrator-Dashboard" project.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Prerequisites
 
-## Build
+Before you start, ensure you have the following:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- [Node.js and npm](https://nodejs.org/) installed.
+- [Angular CLI](https://angular.io/cli) installed (`npm install -g @angular/cli`).
+- [OpenSSL](https://www.openssl.org/) installed for generating SSL certificates.
 
-## Running unit tests
+### Generating SSL Certificates
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+If you already have SSL certificates, skip this step. Otherwise, you can generate self-signed certificates for development using OpenSSL.
 
-## Running end-to-end tests
+1. **Navigate to the "certificates" Folder**:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+   Open a terminal and navigate to the "certificates" folder within your project's root directory:
 
-## Further help
+   ```bash
+   cd certificates
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+2. **Generate the SSL Certificates**:
+
+  Run the following commands to generate the SSL certificates:
+    ```bash
+    openssl req -newkey rsa:2048 -new -nodes -keyout localhost.key -out localhost.csr```
+  And then run this command:
+    ```bash
+    openssl x509 -req -days 365 -in localhost.csr -signkey localhost.key -out localhost.crt```
+
+3. **Running the Angular Application**:
+
+   If your angular.json file is already configured correctly for HTTPS (with the certificate and key paths), you can now start the development server with HTTPS enabled:
+
+   ```bash
+   ng serve --ssl
+   ```
+
+   Your Angular application will be accessible at [https://localhost:4200/](https://localhost:4200/)

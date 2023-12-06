@@ -1,0 +1,8 @@
+<ng-container *ngIf="user;else preloader">
+  <div class="flex pt-16 overflow-hidden bg-dark-soul-50">
+    <router-outlet />
+  </div>
+</ng-container>
+<ng-template #preloader>
+  <Preloader />
+</ng-template>
