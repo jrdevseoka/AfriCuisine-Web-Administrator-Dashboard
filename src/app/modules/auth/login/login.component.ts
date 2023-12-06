@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { AuthService } from "src/app/services/auth.service";
@@ -9,7 +9,7 @@ import { AuthResponse } from "src/app/shared/res/auth.response";
   selector: 'app-login',
   templateUrl: './login.component.html'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   loginForm: FormGroup
 
   reponse: AuthResponse
@@ -31,6 +31,7 @@ export class LoginComponent {
     this.submitting = false
     this.reponse = { token: '', succeeded: false }
   }
+
   onSubmit() {
     this.submitting = true
     this.processed = false
@@ -38,19 +39,34 @@ export class LoginComponent {
     this.checkFormValidity(this.loginForm.invalid)
     const command = this.mapToAuthCommand(this.loginForm)
     this.auth.signInWithEmailAndPassword(command).subscribe((res) => {
-       this.reponse = res
-       this.succeeded = res.succeeded
-       if(res.succeeded)
-       {
+      this.reponse = res
+      this.succeeded = res.succeeded
+      if (res.succeeded) {
         this.submitting = false
         this.processed = true
         this.router.navigate(['dashboard']);
-       }
-       this.submitting = false
-       this.processed = true
-       this.loginForm.reset()
+      }
+      this.submitting = false
+      this.processed = true
+      this.loginForm.reset()
     })
 
+  }
+  ngOnInit(): void {
+    const navigationXtras = this.router.getCurrentNavigation()?.extras
+    if(navigationXtras)
+    {
+       if(navigationXtras.state)
+       {
+           const res = navigationXtras.state['response']
+           this.reponse = {
+              succeeded: res.succeeded,
+              message: res.message,
+              token: ''
+           }
+           this.processed = true
+       }
+    }
   }
   private checkFormValidity(valid: boolean) {
     if (valid) {
@@ -68,8 +84,7 @@ export class LoginComponent {
     }
     return command
   }
-  show()
-  {
-     return this.processed && !this.reponse.succeeded && this.reponse.message?.trim() !== ''
+  show() {
+    return this.processed && !this.reponse.succeeded && this.reponse.message?.trim() !== ''
   }
 }

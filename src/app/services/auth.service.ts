@@ -49,7 +49,7 @@ export class AuthService {
     )
   }
   User = () => {
-    return this.profileSub.value
+    return this.profileSub.asObservable()
   }
   public isUserSuper = () => {
     const token = this.getJWToken()
@@ -67,6 +67,14 @@ export class AuthService {
       return token;
     }
     return '';
+  }
+  isAuthorized = () => {
+    const token = this.getJWToken();
+    if (typeof token !== 'string' || token.trim() === '') {
+      return false;
+    }
+    const isTokenValid = this.jwtService.isTokenExpired(token);
+    return !isTokenValid
   }
 
 }

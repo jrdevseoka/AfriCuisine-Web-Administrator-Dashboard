@@ -10,6 +10,7 @@ import { JwtModule, JwtModuleOptions } from '@auth0/angular-jwt';
 import { CloudinaryModule } from '@cloudinary/ng';
 import { Router } from '@angular/router';
 import { AuthModule } from './modules/auth/auth.module';
+import { DashboardModule } from './modules/dashboard/dashboard.module';
 export const getToken = () => {
   return sessionStorage.getItem("token");
 }
@@ -33,6 +34,7 @@ const jwtOptions: JwtModuleOptions = {
     HttpClientModule,
     CloudinaryModule,
     AuthModule,
+    DashboardModule,
     JwtModule.forRoot(jwtOptions)
   ],
   providers: [],

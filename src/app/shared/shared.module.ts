@@ -8,5 +8,5 @@ import { ErrorAlertComponent } from "./alerts/error/error-alert.component";
   imports: [CommonModule, ReactiveFormsModule],
   exports: [ErrorAlertComponent]
 })
-export class SharedComponentsModule{}
+export class SharedComponentModule{}
 
