@@ -12,8 +12,6 @@ const routes: Routes =
   {
     path: '',
     component: DashboardComponent,
-    canActivate: [DashboardGuard],
-    resolve: { user: UserResolver},
     children: [
       {path: 'home', component: StatisticComponent},
       {path: '**', redirectTo: 'home'}

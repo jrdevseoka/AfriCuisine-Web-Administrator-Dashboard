@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
+import { enviroment } from "src/app/env/env.config";
 import { AuthService } from "src/app/services/auth.service";
 import { AuthCommand } from "src/app/shared/commands/auth.command";
 import { AuthResponse } from "src/app/shared/res/auth.response";
@@ -16,14 +17,13 @@ export class LoginComponent implements OnInit {
 
   processed: boolean
   submitting: boolean
-  succeeded: boolean = false
   constructor(
     private fb: FormBuilder,
     private readonly auth: AuthService,
     private router: Router
   ) {
     this.loginForm = this.fb.group({
-      username: ['', Validators.required],
+      username: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     })
 
@@ -35,41 +35,44 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.submitting = true
     this.processed = false
-
+    if (this.loginForm.valid) {
+      const command = this.mapToAuthCommand(this.loginForm)
+      this.auth.signInWithEmailAndPassword(command).subscribe({
+        next: (response) => {
+          this.reponse = response
+        },
+        error: (err) => {
+          console.log(JSON.stringify(err))
+          this.reponse.message = 'An uexpected error occured while attemptign to sign you in.' + enviroment.supportMessage
+        },
+        complete: () => {
+          this.submitting = false
+          this.processed = true
+          if(this.reponse.succeeded)
+          {
+              this.router.navigate(['dashboard']);
+          }
+        }
+      })
+    }
     this.checkFormValidity(this.loginForm.invalid)
-    const command = this.mapToAuthCommand(this.loginForm)
-    this.auth.signInWithEmailAndPassword(command).subscribe((res) => {
-      this.reponse = res
-      this.succeeded = res.succeeded
-      if (res.succeeded) {
-        this.submitting = false
-        this.processed = true
-        this.router.navigate(['dashboard']);
-      }
-      this.submitting = false
-      this.processed = true
-      this.loginForm.reset()
-    })
-
   }
   ngOnInit(): void {
     const navigationXtras = this.router.getCurrentNavigation()?.extras
-    if(navigationXtras)
-    {
-       if(navigationXtras.state)
-       {
-           const res = navigationXtras.state['response']
-           this.reponse = {
-              succeeded: res.succeeded,
-              message: res.message,
-              token: ''
-           }
-           this.processed = true
-       }
+    if (navigationXtras) {
+      if (navigationXtras.state) {
+        const res = navigationXtras.state['response']
+        this.reponse = {
+          succeeded: res.succeeded,
+          message: res.message,
+          token: ''
+        }
+        this.processed = true
+      }
     }
   }
   private checkFormValidity(valid: boolean) {
-    if (valid) {
+    if (valid && this.processed) {
       this.reponse.message = 'Invalid username or password';
       this.reponse.succeeded = false;
       this.submitting = false;

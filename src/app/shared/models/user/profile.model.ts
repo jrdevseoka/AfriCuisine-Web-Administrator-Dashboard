@@ -3,9 +3,9 @@ import { Role } from "./role.model"
 
 export interface Profile
 {
-    id: string
-    name: string
-    email: string
-    role?: Role
-    picture?: Picture
+    id?: string
+    name?: string
+    email?: string
+    role?: string
+    picture?: string
 }

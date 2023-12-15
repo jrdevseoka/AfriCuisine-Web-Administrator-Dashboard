@@ -1,80 +1,59 @@
-import { Injectable } from "@angular/core";
-import { BehaviorSubject, Observable, catchError, from, of, switchMap } from "rxjs";
-import { Profile } from "../shared/models/user/profile.model";
-import { UserService } from "./user.service";
-import { AuthCommand } from "../shared/commands/auth.command";
-import { AuthResponse } from "../shared/res/auth.response";
-import { enviroment } from "../env/env.config";
-import { HttpClient } from "@angular/common/http";
-import { JwtHelperService } from "@auth0/angular-jwt";
+import { Injectable } from "@angular/core"
+import { BehaviorSubject, Observable, Subject, catchError, from, of, switchMap } from "rxjs";
+import { Profile } from "../shared/models/user/profile.model"
+import { AuthCommand } from "../shared/commands/auth.command"
+import { AuthResponse } from "../shared/res/auth.response"
+import { enviroment } from "../env/env.config"
+import { HttpClient } from "@angular/common/http"
+import { JwtHelperService } from "@auth0/angular-jwt"
+import { JWTService } from "./jwt.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private endpoint = `${enviroment.apiUri}/auth`
 
-  private profileSub: BehaviorSubject<Profile>
-  private user: Profile
+  private endpoint = `${enviroment.apiUri}/auth`
+  private userSubject: BehaviorSubject<Profile | undefined>
+  public  user$: Observable<Profile | undefined>
 
   constructor(
-    private userService: UserService,
     private http: HttpClient,
-    private jwtService: JwtHelperService
+    private jwt: JWTService
   ) {
-    this.user = { email: '', name: '', id: '' }
-    this.profileSub = this.profileSub = new BehaviorSubject<Profile>(this.user)
+    var claims = this.jwt.getJwtClaims(this.jwt.token)
+     const user = this.jwt.mapClaimsToProfile(claims) as Profile | undefined
+     this.userSubject = new BehaviorSubject<Profile | undefined>(user)
+     this.user$ = this.userSubject.asObservable()
   }
   signInWithEmailAndPassword(command: AuthCommand): Observable<AuthResponse> {
-    return from(
-      this.http.post<AuthResponse>(this.endpoint, command).pipe(
-        switchMap(async (res) => {
-          if (res.succeeded) {
-            sessionStorage.setItem('token', res.token);
-            const data = await this.userService.getAuthorizedUser(command.username);
-            this.profileSub.next(data.item);
-          }
-          return res;
-        }),
-        catchError((error) => {
-          console.error('Error signing in:', error);
-          const response: AuthResponse = {
-            token: '',
-            message: 'An unexpected error occurred while attempting to sign-in. ' + enviroment.supportMessage,
-            succeeded: false,
-          };
-          return of(response);
-        })
-      )
-    )
-  }
-  User = () => {
-    return this.profileSub.asObservable()
-  }
-  public isUserSuper = () => {
-    const token = this.getJWToken()
-    const claims = this.jwtService.decodeToken(token)
-    return claims.role == 'Super'
-  }
-  public isUserRestricted = () => {
-    const token = this.getJWToken()
-    const claims = this.jwtService.decodeToken(token)
-    return claims.role == 'Restricted'
-  }
-  getJWToken(): string {
-    const token = sessionStorage.getItem("token");
-    if (token && typeof token === 'string' && token.trim() !== '') {
-      return token;
-    }
-    return '';
-  }
-  isAuthorized = () => {
-    const token = this.getJWToken();
-    if (typeof token !== 'string' || token.trim() === '') {
-      return false;
-    }
-    const isTokenValid = this.jwtService.isTokenExpired(token);
-    return !isTokenValid
+    const response = this.http.post<AuthResponse>(this.endpoint, command)
+    return response.pipe(switchMap(res => {
+      if(res.succeeded)
+      {
+        sessionStorage.setItem("token", res.token)
+        var claims = this.jwt.getJwtClaims(res.token)
+        var user = this.jwt.mapClaimsToProfile(claims)
+        this.userSubject.next(user)
+      }
+      return of(res)
+    }))
   }
 
+  UserProfile = (user: Profile) => {
+     const profile = new BehaviorSubject<Profile>(user)
+     return profile
+  }
+  public isSuper = () => {
+    const claims = this.jwt.getJwtClaims(this.jwt.token)
+    return claims.role == 'Super'
+  }
+  public isRestricted = () => {
+    const claims = this.jwt.getJwtClaims(this.jwt.token)
+    return claims.role == 'Restricted'
+  }
+  isAuthorized = () => {
+    const isTokenValid = this.jwt.tokenValid
+    return isTokenValid
+  }
 }

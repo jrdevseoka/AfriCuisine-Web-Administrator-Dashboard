@@ -1,6 +1,6 @@
 import { AuthResponse } from './../../shared/res/auth.response';
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, NavigationExtras, Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Profile } from "src/app/shared/models/user/profile.model";
 
 @Component({
@@ -12,11 +12,12 @@ export class DashboardComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private router: Router) {
-    this.user = { name: '', id: '', email: '' }
+    this.user = { name: '', id: '', email: '', role: '' }
   }
   ngOnInit(): void {
     this.user = this.route.snapshot.data['user']
-    if (this.user) {
+    if (this.user && typeof this.user === 'undefined') {
+      sessionStorage.setItem("claims", JSON.stringify(this.user))
       this.router.navigate(['home'])
     }
     this.setStateAndErrorMessage(this.user)

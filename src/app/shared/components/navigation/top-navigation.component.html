@@ -1,0 +1,67 @@
+<nav class="fixed z-30 w-full bg-white border-b border-dark-soul-200">
+    <div class="px-3 py-3 lg:px-5 lg:pl-3">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center justify-start">
+          <button id="toggleSidebarMobile" aria-expanded="true" aria-controls="sidebar" class="p-2 text-devilish-400 rounded cursor-pointer lg:hidden
+             hover:text-devilish-500
+             hover:bg-devilish-200 focus:bg-devilish-200 focus:ring-2
+              focus:ring-devilish-200">
+              <svg id="toggleSidebarMobileHamburger" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M3 5a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1zm0 5a1 1 0 0 1 1-1h6a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1zm0 5a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1z" clip-rule="evenodd"/>
+              </svg>
+              <svg id="toggleSidebarMobileClose" class="hidden w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 0 1 1.414 0L10 8.586l4.293-4.293a1 1 0 1 1 1.414 1.414L11.414 10l4.293 4.293a1 1 0 0 1-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L8.586 10 4.293 5.707a1 1 0 0 1 0-1.414z" clip-rule="evenodd"/>
+              </svg>
+            <span class="sr-only">Side Bar Toggle</span>
+          </button>
+          <a [routerLink]="['home']" class="flex ml-2 md:mr-24">
+            <img src="assets/svg/logo.svg" class="h-8 mr-3" alt="AfriCuisine Logo" />
+            <span
+              class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">AfriCuisine</span>
+          </a>
+        </div>
+        <div class="flex items-center">
+          <div class="hidden mr-3 -mb-1 sm:block">
+            <span></span>
+          </div>
+          <div class="flex items-center ml-3">
+            <div>
+              <button type="button"
+                class="flex text-sm bg-devilish-800 rounded-full focus:ring-4 focus:ring-devilish-300 dark:focus:ring-devilish-600"
+                id="user-menu-button-2" aria-expanded="false" data-dropdown-toggle="dropdown-2">
+                <span class="sr-only">Open user menu</span>
+                <img class="w-8 h-8 rounded-full" [src]="user.picture"
+                  alt="user photo" />
+              </button>
+            </div>
+
+            <div
+              class="z-50 border border-dark-soul-400 hidden my-4 text-base list-none bg-white divide-y divide-devilish-100 rounded shadow dark:bg-devilish-700 dark:divide-devilish-600"
+              id="dropdown-2" data-popper-placement="bottom">
+              <div class="px-4 py-3" role="none">
+                <p class="text-sm text-devilish-900 dark:text-white" role="none">
+                  {{user.name}}
+                </p>
+                <p class="text-sm font-medium text-devilish-900 truncate dark:text-devilish-300" role="none">
+                  {{user.email}}
+                </p>
+              </div>
+              <ul class="py-1" role="none">
+                <li>
+                  <a href="#"
+                    class="block px-4 py-2 text-sm text-devilish-700 hover:bg-devilish-100 dark:text-devilish-300 dark:hover:bg-devilish-600 dark:hover:text-white"
+                    role="menuitem">Profile</a>
+                </li>
+
+                <li>
+                  <a (click)="logOut()"
+                    class="block px-4 py-2 text-sm text-devilish-700 hover:bg-devilish-100 dark:text-devilish-300 dark:hover:bg-devilish-600 dark:hover:text-white"
+                    role="menuitem">Sign out</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
