@@ -1,10 +1,10 @@
-<ng-container *ngIf="user;else preloader">
-  <Top-Navigation [user]="user"/>
-  <div class="overflow-hidden bg-dark-soul-50">
-    <Side-Navigation />
-    <router-outlet />
+<Top-Navigation [user]="user" />
+<Side-Navigation />
+<div class="p-4 sm:ml-64">
+  <div class="p-4 border-2 border-devilish-500 border-dashed rounded-lg mt-14">
+    <div class="p-4 bg-white border rounded-lg shadow-sm">
+      <router-outlet />
+    </div>
+
   </div>
-</ng-container>
-<ng-template #preloader>
-  <Preloader />
-</ng-template>
+</div>
