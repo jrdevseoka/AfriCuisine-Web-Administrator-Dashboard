@@ -5,11 +5,13 @@ import { ErrorAlertComponent } from "./components/alerts/error/error-alert.compo
 import { PreloaderComponent } from "./components/preloader/preloader.component";
 import { TopNavigationComponent } from "./components/navigation/top-navigation.component";
 import { RouterModule } from "@angular/router";
+import { SuccesAlertComponent } from "./components/alerts/success/success-alert.component";
+import { SideNavigationComponent } from "./components/navigation/side-navigation.component";
 
 @NgModule({
-  declarations: [ErrorAlertComponent, PreloaderComponent, TopNavigationComponent],
+  declarations: [ErrorAlertComponent, PreloaderComponent, TopNavigationComponent, SuccesAlertComponent, SideNavigationComponent],
   imports: [CommonModule, RouterModule, ReactiveFormsModule],
-  exports: [ErrorAlertComponent, PreloaderComponent, TopNavigationComponent]
+  exports: [ErrorAlertComponent, PreloaderComponent, TopNavigationComponent, SuccesAlertComponent, SideNavigationComponent]
 })
 export class SharedComponentModule { }
 

@@ -1,6 +1,7 @@
 <ng-container *ngIf="user;else preloader">
-  <Top-Navigation/>
+  <Top-Navigation [user]="user"/>
   <div class="overflow-hidden bg-dark-soul-50">
+    <Side-Navigation />
     <router-outlet />
   </div>
 </ng-container>

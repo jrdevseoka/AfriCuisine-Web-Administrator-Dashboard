@@ -1,12 +1,12 @@
 import { Injectable } from "@angular/core"
 import { BehaviorSubject, Observable, Subject, catchError, from, of, switchMap } from "rxjs";
-import { Profile } from "../shared/models/user/profile.model"
-import { AuthCommand } from "../shared/commands/auth.command"
-import { AuthResponse } from "../shared/res/auth.response"
-import { enviroment } from "../env/env.config"
+import { Profile } from "../../shared/models/user/profile.model"
+import { AuthCommand } from "../../shared/commands/auth.command"
+import { AuthResponse } from "../../shared/res/auth.response"
+import { enviroment } from "../../env/env.config"
 import { HttpClient } from "@angular/common/http"
-import { JwtHelperService } from "@auth0/angular-jwt"
 import { JWTService } from "./jwt.service";
+import { ForgotPasswordCommand } from "../../shared/commands/forgot-password.command";
 
 @Injectable({
   providedIn: 'root'
@@ -40,10 +40,6 @@ export class AuthService {
     }))
   }
 
-  UserProfile = (user: Profile) => {
-     const profile = new BehaviorSubject<Profile>(user)
-     return profile
-  }
   public isSuper = () => {
     const claims = this.jwt.getJwtClaims(this.jwt.token)
     return claims.role == 'Super'

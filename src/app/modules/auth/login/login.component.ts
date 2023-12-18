@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { enviroment } from "src/app/env/env.config";
-import { AuthService } from "src/app/services/auth.service";
+import { AuthService } from "src/app/services/users/auth.service";
 import { AuthCommand } from "src/app/shared/commands/auth.command";
 import { AuthResponse } from "src/app/shared/res/auth.response";
 
@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
         },
         error: (err) => {
           console.log(JSON.stringify(err))
-          this.reponse.message = 'An uexpected error occured while attemptign to sign you in.' + enviroment.supportMessage
+          this.reponse.message = 'An uexpected error occured while attempting to sign you in.' + enviroment.message
         },
         complete: () => {
           this.submitting = false

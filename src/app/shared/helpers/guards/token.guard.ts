@@ -1,5 +1,5 @@
 import { Inject, Injectable, inject } from "@angular/core";
-import { ActivatedRouteSnapshot, CanActivateFn, RouterStateSnapshot} from "@angular/router";
+import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot} from "@angular/router";
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { AuthService } from "src/app/services/users/auth.service";
 
@@ -7,16 +7,21 @@ import { AuthService } from "src/app/services/users/auth.service";
   providedIn: 'root'
 })
 class Permission {
-  constructor(private auth: AuthService,
-    private jwt: JwtHelperService) { }
+
+  constructor(private router: Router){}
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    return this.auth.isAuthorized()
+    const token: string = route.queryParams['token']
+    if(typeof token === 'undefined')
+    {
+       this.router.navigate([''])
+    }
+    return true
   }
 }
 
-export const DashboardGuard: CanActivateFn =
+export const TokenGuard: CanActivateFn =
 (route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean => {
      const permission: Permission =  inject(Permission)
-     const authorized: boolean =  permission.canActivate(route, state)
-     return authorized
+     const tokenExist: boolean =  permission.canActivate(route, state)
+     return tokenExist
 }

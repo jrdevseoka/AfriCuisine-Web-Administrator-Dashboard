@@ -1,9 +1,9 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { firstValueFrom } from "rxjs";
-import { enviroment } from "../env/env.config";
-import { Profile } from "../shared/models/user/profile.model";
-import { ItemReponse } from "../shared/res/item.response"
+import { enviroment } from "../../env/env.config";
+import { Profile } from "../../shared/models/user/profile.model";
+import { ItemReponse } from "../../shared/res/item.response"
 
 @Injectable({
   providedIn: 'root'

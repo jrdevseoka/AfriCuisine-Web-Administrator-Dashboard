@@ -12,15 +12,15 @@ export class DashboardComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private router: Router) {
-    this.user = { name: '', id: '', email: '', role: '' }
+      this.user = this.route.snapshot.data['user']
+      if (this.user && typeof this.user !== 'undefined') {
+        sessionStorage.setItem("claims", JSON.stringify(this.user))
+        this.router.navigate(['/dashboard/home'])
+      }
+      this.setStateAndErrorMessage(this.user)
   }
   ngOnInit(): void {
-    this.user = this.route.snapshot.data['user']
-    if (this.user && typeof this.user === 'undefined') {
-      sessionStorage.setItem("claims", JSON.stringify(this.user))
-      this.router.navigate(['home'])
-    }
-    this.setStateAndErrorMessage(this.user)
+
   }
   private setStateAndErrorMessage(user: Profile) {
     if (!user) {
