@@ -9,7 +9,7 @@ import { Profile } from "src/app/shared/models/user/profile.model";
 })
 export class DashboardComponent implements OnInit {
   user: Profile
-
+  year: number = 0
   constructor(private route: ActivatedRoute,
     private router: Router) {
       this.user = this.route.snapshot.data['user']
@@ -20,7 +20,8 @@ export class DashboardComponent implements OnInit {
       this.setStateAndErrorMessage(this.user)
   }
   ngOnInit(): void {
-
+    const date = new Date()
+    this.year = date.getFullYear()
   }
   private setStateAndErrorMessage(user: Profile) {
     if (!user) {

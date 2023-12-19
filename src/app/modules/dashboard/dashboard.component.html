@@ -1,10 +1,18 @@
-<Top-Navigation [user]="user" />
-<Side-Navigation />
-<div class="p-4 sm:ml-64">
-  <div class="p-4 border-2 border-devilish-500 border-dashed rounded-lg mt-14">
-    <div class="p-4 bg-white border rounded-lg shadow-sm">
-      <router-outlet />
-    </div>
+<Top-Navigation [user]="user"/>
 
+<div class="flex pt-16 overflow-hidden">
+  <Side-Navigation/>
+  <div id="main-content" class="relative w-full h-full overflow-y-auto lg:ml-64">
+    <main>
+      <div class="px-4 pt-6">
+        <div class="p-4 bg-white border border-devilish-500 rounded-lg shadow-sm sm:p-6">
+          <router-outlet />
+        </div>
+      </div>
+    </main>
+    <p class="my-10 text-sm text-center text-dark-soul-400">
+       &copy; {{year}} <a href="" class="hover:underline"> Africuisine</a>.
+       All rights reserved.
+    </p>
   </div>
 </div>
