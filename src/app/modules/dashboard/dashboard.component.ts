@@ -1,6 +1,8 @@
 import { AuthResponse } from './../../shared/res/auth.response';
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { AuthService } from 'src/app/services/users/auth.service';
 import { Profile } from "src/app/shared/models/user/profile.model";
 
 @Component({
@@ -11,7 +13,9 @@ export class DashboardComponent implements OnInit {
   user: Profile
   year: number = 0
   constructor(private route: ActivatedRoute,
-    private router: Router) {
+    private router: Router, private jwt: JwtHelperService, auth: AuthService) {
+      const token = sessionStorage.getItem("token")
+      var claims = jwt.decodeToken(token!)
       this.user = this.route.snapshot.data['user']
       if (this.user && typeof this.user !== 'undefined') {
         sessionStorage.setItem("claims", JSON.stringify(this.user))

@@ -11,7 +11,7 @@ import { ItemsResponse } from 'src/app/shared/res/items.reponse';
   providedIn: 'root'
 })
 export class IngrCategoryService {
-  endpoint: string = `${enviroment.apiUri}/ingrcategories`
+  endpoint: string = `${enviroment.server}/ingrcategories`
   constructor(private readonly http: HttpClient){}
   create(category: CategoryCommand)
   {

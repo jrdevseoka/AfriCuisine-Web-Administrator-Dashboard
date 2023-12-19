@@ -15,7 +15,7 @@
 
       </div>
       <div class="flex items-center">
-          <button type="button" class="hidden cursor-pointer p-2 text-devilish-400 rounded-lg sm:flex hover:text-devilish-500 hover:bg-devilish-100">
+          <button (click)="logOut()" type="button" class="hidden cursor-pointer p-2 text-devilish-400 rounded-lg sm:flex hover:text-devilish-500 hover:bg-devilish-100">
             <span class="sr-only">Log out</span>
             <svg class="w-6 h-6 cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path></svg>
           </button>
@@ -23,7 +23,7 @@
             <div>
               <button type="button" class="flex text-sm bg-dark-soul-800 rounded-full focus:ring-4 focus:ring-dark-soul-300" id="user-menu-button-2" aria-expanded="false" data-dropdown-toggle="dropdown-2">
                 <span class="sr-only">Open user menu</span>
-                <img class="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo">
+                <img class="w-8 h-8 rounded-full" [src]="user?.picture" alt="user photo">
               </button>
             </div>
 

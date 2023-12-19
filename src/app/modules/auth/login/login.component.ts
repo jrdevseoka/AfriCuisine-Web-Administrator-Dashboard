@@ -72,7 +72,7 @@ export class LoginComponent implements OnInit {
     }
   }
   private checkFormValidity(valid: boolean) {
-    if (valid && this.processed) {
+    if (valid && this.submitting) {
       this.reponse.message = 'Invalid username or password';
       this.reponse.succeeded = false;
       this.submitting = false;

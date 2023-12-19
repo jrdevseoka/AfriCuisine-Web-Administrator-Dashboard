@@ -9,6 +9,7 @@ import { SuccesAlertComponent } from './components/alerts/success/success-alert.
 import { SideNavigationComponent } from './components/navigation/side-navigation.component';
 import { TableComponent } from './components/table/table.component';
 import { SectionHeaderComponent } from './components/section/section-header.component';
+import { CategoryModalComponent } from './components/modals/category/category-modal.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { SectionHeaderComponent } from './components/section/section-header.comp
     SuccesAlertComponent,
     SideNavigationComponent,
     TableComponent,
+    CategoryModalComponent,
     SectionHeaderComponent
   ],
   imports: [CommonModule, RouterModule, ReactiveFormsModule],
@@ -28,6 +30,7 @@ import { SectionHeaderComponent } from './components/section/section-header.comp
     SuccesAlertComponent,
     SideNavigationComponent,
     TableComponent,
+    CategoryModalComponent,
     SectionHeaderComponent
   ],
 })

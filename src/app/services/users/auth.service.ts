@@ -13,7 +13,7 @@ import { ForgotPasswordCommand } from "../../shared/commands/forgot-password.com
 })
 export class AuthService {
 
-  private endpoint = `${enviroment.apiUri}/auth`
+  private endpoint = `${enviroment.server}/auth`
   private userSubject: BehaviorSubject<Profile | undefined>
   public  user$: Observable<Profile | undefined>
 

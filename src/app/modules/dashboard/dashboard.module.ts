@@ -15,7 +15,7 @@ const routes: Routes =
     component: DashboardComponent,
     children: [
       {path: 'home', component: StatisticComponent},
-      {path: 'ingredient-categories', component: IngredientCategoryComponent, title: 'Africusine Dashboard | Ingredient Categories'},
+      {path: 'ingr-categories', component: IngredientCategoryComponent, title: 'Africusine Dashboard | Ingredient Categories'},
       {path: '**', redirectTo: 'home'}
     ]
   }

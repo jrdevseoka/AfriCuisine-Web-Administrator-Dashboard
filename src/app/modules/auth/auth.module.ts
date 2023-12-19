@@ -17,13 +17,13 @@ const routes = [
     component: AuthComponent,
     children: [
       { path: 'login', component: LoginComponent, title: 'Admin Dashboard | Sign In' },
-      {path: 'forgot-password', component: ForgotPasswordComponent, title: 'Admin Dashboard | Reset Password'},
-      { path: 'reset-password', component: ResetPasswordComponent , canActivate: [TokenGuard], title: 'Admin Dashboard | Update Password'},
+      { path: 'forgot-password', component: ForgotPasswordComponent, title: 'Admin Dashboard | Reset Password' },
+      { path: 'reset-password', component: ResetPasswordComponent, canActivate: [TokenGuard], title: 'Admin Dashboard | Update Password' },
     ],
   },
 ];
 @NgModule({
-  declarations: [AuthComponent,ForgotPasswordComponent ,LoginComponent, ResetPasswordComponent],
+  declarations: [AuthComponent, ForgotPasswordComponent, LoginComponent, ResetPasswordComponent],
   imports: [CommonModule, RouterModule.forChild(routes), ReactiveFormsModule, SharedComponentModule],
 })
 export class AuthModule { }

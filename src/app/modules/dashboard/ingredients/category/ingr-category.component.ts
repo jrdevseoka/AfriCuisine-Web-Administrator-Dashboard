@@ -35,24 +35,6 @@ export class IngredientCategoryComponent implements OnInit, OnChanges {
     throw new Error("Method not implemented.");
   }
   ngOnInit(): void {
-    this.auth.user$.subscribe((user) =>{
-      if(typeof user !== 'undefined')
-      {
-         this.user = user
-      }
-    })
-    this.categoryService.getCategories().subscribe({
-      next: (res) => {
-         if(res.succeeded)
-         {
-            this.categories = res.items
-         }
-      },
-      error: (err) => {
-         this.response.message = 'An unexpected error occured while updating the categories table.'
-         this.response.succeeded = false
-      }
-     })
   }
   onSubmit()
   {

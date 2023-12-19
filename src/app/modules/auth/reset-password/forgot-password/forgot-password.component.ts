@@ -25,7 +25,7 @@ export class ForgotPasswordComponent {
   }
   onSubmit() {
     if (this.form.valid) {
-      const body: ForgotPasswordCommand = { uri: enviroment.uiUri, email: this.email }
+      const body: ForgotPasswordCommand = { uri: enviroment.host, email: this.email }
       this.password.forgotPassword(body).subscribe({
         next: (response) => {
           this.response = response
