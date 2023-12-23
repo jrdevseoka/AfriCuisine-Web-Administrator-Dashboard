@@ -13,7 +13,7 @@ import { AuthResponse } from "src/app/shared/res/auth.response";
 export class LoginComponent implements OnInit {
   loginForm: FormGroup
 
-  reponse: AuthResponse
+  response: AuthResponse
 
   processed: boolean
   submitting: boolean
@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
 
     this.processed = false
     this.submitting = false
-    this.reponse = { token: '', succeeded: false }
+    this.response = { token: '', succeeded: false }
   }
 
   onSubmit() {
@@ -39,18 +39,16 @@ export class LoginComponent implements OnInit {
       const command = this.mapToAuthCommand(this.loginForm)
       this.auth.signInWithEmailAndPassword(command).subscribe({
         next: (response) => {
-          this.reponse = response
+          this.response = response
         },
         error: (err) => {
           console.log(JSON.stringify(err))
-          this.reponse.message = 'An uexpected error occured while attempting to sign you in.' + enviroment.message
+          this.response.message = 'An uexpected error occured while attempting to sign you in.' + enviroment.message
         },
         complete: () => {
-          this.submitting = false
-          this.processed = true
-          if(this.reponse.succeeded)
+          if(this.response.succeeded)
           {
-              this.router.navigate(['dashboard']);
+             this.router.navigate(['dashboard'])
           }
         }
       })
@@ -62,7 +60,7 @@ export class LoginComponent implements OnInit {
     if (navigationXtras) {
       if (navigationXtras.state) {
         const res = navigationXtras.state['response']
-        this.reponse = {
+        this.response = {
           succeeded: res.succeeded,
           message: res.message,
           token: ''
@@ -73,8 +71,8 @@ export class LoginComponent implements OnInit {
   }
   private checkFormValidity(valid: boolean) {
     if (valid && this.submitting) {
-      this.reponse.message = 'Invalid username or password';
-      this.reponse.succeeded = false;
+      this.response.message = 'Invalid username or password';
+      this.response.succeeded = false;
       this.submitting = false;
       this.processed = true;
       return;
@@ -88,6 +86,6 @@ export class LoginComponent implements OnInit {
     return command
   }
   show() {
-    return this.processed && !this.reponse.succeeded && this.reponse.message?.trim() !== ''
+    return this.processed && !this.response.succeeded && this.response.message?.trim() !== ''
   }
 }

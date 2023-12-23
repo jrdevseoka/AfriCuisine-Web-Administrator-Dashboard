@@ -40,6 +40,20 @@ export class AuthService {
     }))
   }
 
+  refreshToken(email: string)
+  {
+     const response = this.http.post<AuthResponse>(this.endpoint, email);
+     return response.pipe(
+      switchMap((res) =>{
+        sessionStorage.setItem("token", res.token)
+        var claims = this.jwt.getJwtClaims(res.token)
+        var user = this.jwt.mapClaimsToProfile(claims)
+        this.userSubject.next(user)
+         return of(res)
+      })
+     )
+  }
+
   public isSuper = () => {
     const claims = this.jwt.getJwtClaims(this.jwt.token)
     return claims.role == 'Super'

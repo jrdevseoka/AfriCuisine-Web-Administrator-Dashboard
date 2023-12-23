@@ -1,38 +1,42 @@
-import { AuthResponse } from './../../shared/res/auth.response';
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { AuthService } from 'src/app/services/users/auth.service';
+import { AfterViewChecked, AfterViewInit, Component } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { InstanceOptions, Modal, ModalInterface, ModalOptions } from "flowbite";
+import { JWTService } from "src/app/services/users/jwt.service";
 import { Profile } from "src/app/shared/models/user/profile.model";
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html'
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements AfterViewInit {
   user: Profile
-  year: number = 0
-  constructor(private route: ActivatedRoute,
-    private router: Router, private jwt: JwtHelperService, auth: AuthService) {
-      const token = sessionStorage.getItem("token")
-      var claims = jwt.decodeToken(token!)
-      this.user = this.route.snapshot.data['user']
-      if (this.user && typeof this.user !== 'undefined') {
-        sessionStorage.setItem("claims", JSON.stringify(this.user))
-        this.router.navigate(['/dashboard/home'])
+  constructor(private route: ActivatedRoute, private jwt: JWTService) {
+    this.user = this.route.snapshot.data['user']
+    sessionStorage.setItem("claims", JSON.stringify(this.user))
+  }
+  ngAfterViewInit(): void {
+    if (!this.user.picture) {
+      const activateModal = Boolean(sessionStorage.getItem("activate-profile-modal")) || false;
+      if (!activateModal) {
+        const modalEl: HTMLElement = document.querySelector('#upload-pic-modal')!
+        if (modalEl && typeof modalEl !== 'undefined') {
+          const modalOpts: ModalOptions = {
+            placement: 'center',
+            backdropClasses: 'bg-dark-soul',
+            closable: false,
+            onShow: () => {
+              console.log('Modal Should be showing');
+            }
+          }
+          const instanceOpts: InstanceOptions = {
+            id: 'upload-pic-modal',
+            override: true
+          }
+          const modal = new Modal(modalEl, modalOpts, instanceOpts)
+          modal.show()
+        }
       }
-      this.setStateAndErrorMessage(this.user)
-  }
-  ngOnInit(): void {
-    const date = new Date()
-    this.year = date.getFullYear()
-  }
-  private setStateAndErrorMessage(user: Profile) {
-    if (!user) {
-      const response: AuthResponse = {token: '',  succeeded: false, message: 'Unexpected error occured while fetching user details' }
-      sessionStorage.removeItem("token")
-      this.router.navigate(['/auth/login'], { state: { response: response}})
-      return;
     }
   }
+
 }

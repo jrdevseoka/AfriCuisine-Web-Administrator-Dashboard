@@ -10,7 +10,13 @@ import { JwtModule, JwtModuleOptions } from '@auth0/angular-jwt';
 import { CloudinaryModule } from '@cloudinary/ng';
 import { Router } from '@angular/router';
 import { AuthModule } from './modules/auth/auth.module';
-import { DashboardModule } from './modules/dashboard/dashboard.module';
+import { NotFoundComponent } from './shared/components/not-found/not-found.component';
+import { SharedComponentModule } from './shared/shared.module';
+import { DashboardComponent } from './modules/dashboard/dashboard.component';
+import { RecipeCategoryComponent } from './modules/recipe/recipe-category/recipe-category.component';
+import { RecipeComponent } from './modules/recipe/recipe.component';
+import { IngredientCategoryComponent } from './modules/ingredient/ingr-categories/ingredient-category.component';
+import { IngredientComponent } from './modules/ingredient/ingredient.component';
 export const getToken = () => {
   return sessionStorage.getItem("token");
 }
@@ -26,15 +32,20 @@ const jwtOptions: JwtModuleOptions = {
 @NgModule({
   declarations: [
     AppComponent,
+    DashboardComponent,
+    RecipeCategoryComponent,
+    RecipeComponent,
+    IngredientCategoryComponent,
+    IngredientComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    SharedComponentModule,
     HttpClientModule,
     CloudinaryModule,
     AuthModule,
-    DashboardModule,
     JwtModule.forRoot(jwtOptions)
   ],
   providers: [],

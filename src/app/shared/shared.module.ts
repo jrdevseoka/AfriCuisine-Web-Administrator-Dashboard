@@ -10,6 +10,8 @@ import { SideNavigationComponent } from './components/navigation/side-navigation
 import { TableComponent } from './components/table/table.component';
 import { SectionHeaderComponent } from './components/section/section-header.component';
 import { CategoryModalComponent } from './components/modals/category/category-modal.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { UploadPictureComponent } from './components/upload-pic/upload-picture.component';
 
 @NgModule({
   declarations: [
@@ -20,18 +22,22 @@ import { CategoryModalComponent } from './components/modals/category/category-mo
     SideNavigationComponent,
     TableComponent,
     CategoryModalComponent,
-    SectionHeaderComponent
+    NotFoundComponent,
+    SectionHeaderComponent,
+    UploadPictureComponent,
   ],
   imports: [CommonModule, RouterModule, ReactiveFormsModule],
   exports: [
     ErrorAlertComponent,
     PreloaderComponent,
     TopNavigationComponent,
+    NotFoundComponent,
     SuccesAlertComponent,
     SideNavigationComponent,
     TableComponent,
     CategoryModalComponent,
-    SectionHeaderComponent
+    SectionHeaderComponent,
+    UploadPictureComponent
   ],
 })
 export class SharedComponentModule {}

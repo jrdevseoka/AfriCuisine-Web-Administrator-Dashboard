@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { initFlowbite } from 'flowbite';
 
 import { Cloudinary } from '@cloudinary/url-gen';
+import { AuthService } from './services/users/auth.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -11,9 +12,10 @@ export class AppComponent implements OnInit {
 
   title = 'AfriCuisine | Administrator';
   authenticated: boolean = false
-  constructor(private router: Router) { }
+  constructor(private router: Router, private auth: AuthService) { }
   ngOnInit(): void {
     initFlowbite();
     const cld = new Cloudinary({cloud: {cloudName: 'africuisine'}});
+    this.authenticated = this.auth.isAuthorized()
   }
 }

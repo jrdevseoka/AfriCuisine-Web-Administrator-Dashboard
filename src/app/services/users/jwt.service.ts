@@ -1,13 +1,17 @@
 import { Injectable } from "@angular/core";
 import { Profile } from "../../shared/models/user/profile.model";
 import { JwtHelperService } from "@auth0/angular-jwt";
+import { HttpClient } from "@angular/common/http";
+import { AuthResponse } from "src/app/shared/res/auth.response";
+import { enviroment } from "src/app/env/env.config";
 
 @Injectable({
   providedIn: 'root'
 })
 export class JWTService {
 
-  constructor(private jwt: JwtHelperService) {}
+  private endpoint = `${enviroment.server}/auth/refresh`
+  constructor(private jwt: JwtHelperService, private http: HttpClient) {}
 
   get token() {
     const token = sessionStorage.getItem("token");
